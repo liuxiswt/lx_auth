@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+
+spring :
+  datasource :
+    driverClassName : com.mysql.jdbc.Driver
+    url : jdbc:mysql://localhost:3306/auth?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false
+    username : root
+    password : root
+    hikari:
+      maxLifetime: 1765000
+      maximumPoolSize: 15
+
+
+mybatis :
+  mapperLocations : classpath*:mybatis/*.xml, mybatis/*/*.xml
+  executor-type : reuse
+  type-aliases-package : com.*.model
+  configuration :
+    map-underscore-to-camel-case : true
