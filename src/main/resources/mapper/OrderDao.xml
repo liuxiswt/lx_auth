@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.auth.mapper.OrderDao">
+
+    <resultMap type="com.lx.auth.model.dto.Order" id="OrderMap">
+        <result property="id" column="id" jdbcType="LONG INTEGER"/>
+        <result property="orderNo" column="order_no" jdbcType="VARCHAR"/>
+        <result property="count" column="count" jdbcType="INTEGER"/>
+        <result property="amount" column="amount" jdbcType="NUMERIC"/>
+        <result property="orderDate" column="order_date" jdbcType="OTHER"/>
+        <result property="orderBy" column="order_by" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrderMap">
+        select
+          id, order_no, count, amount, order_date, order_by
+        from auth.order
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OrderMap">
+        select
+          id, order_no, count, amount, order_date, order_by
+        from auth.order
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OrderMap">
+        select
+          id, order_no, count, amount, order_date, order_by
+        from auth.order
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="orderNo != null and orderNo != ''">
+                and order_no = #{orderNo}
+            </if>
+            <if test="count != null">
+                and count = #{count}
+            </if>
+            <if test="amount != null">
+                and amount = #{amount}
+            </if>
+            <if test="orderDate != null">
+                and order_date = #{orderDate}
+            </if>
+            <if test="orderBy != null and orderBy != ''">
+                and order_by = #{orderBy}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into auth.order(order_no, count, amount, order_date, order_by)
+        values (#{orderNo}, #{count}, #{amount}, #{orderDate}, #{orderBy})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update auth.order
+        <set>
+            <if test="orderNo != null and orderNo != ''">
+                order_no = #{orderNo},
+            </if>
+            <if test="count != null">
+                count = #{count},
+            </if>
+            <if test="amount != null">
+                amount = #{amount},
+            </if>
+            <if test="orderDate != null">
+                order_date = #{orderDate},
+            </if>
+            <if test="orderBy != null and orderBy != ''">
+                order_by = #{orderBy},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from auth.order where id = #{id}
+    </delete>
+
+</mapper>

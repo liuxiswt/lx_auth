@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.auth.mapper.OrderGoodDao">
+
+    <resultMap type="com.lx.auth.model.dto.OrderGood" id="OrderGoodMap">
+        <result property="id" column="id" jdbcType="LONG INTEGER"/>
+        <result property="orderNo" column="order_no" jdbcType="VARCHAR"/>
+        <result property="goodId" column="good_id" jdbcType="LONG INTEGER"/>
+        <result property="goodName" column="good_name" jdbcType="VARCHAR"/>
+        <result property="goodPrice" column="good_price" jdbcType="NUMERIC"/>
+        <result property="goodCount" column="good_count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrderGoodMap">
+        select
+          id, order_no, good_id, good_name, good_price, good_count
+        from auth.order_good
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OrderGoodMap">
+        select
+          id, order_no, good_id, good_name, good_price, good_count
+        from auth.order_good
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OrderGoodMap">
+        select
+          id, order_no, good_id, good_name, good_price, good_count
+        from auth.order_good
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="orderNo != null and orderNo != ''">
+                and order_no = #{orderNo}
+            </if>
+            <if test="goodId != null">
+                and good_id = #{goodId}
+            </if>
+            <if test="goodName != null and goodName != ''">
+                and good_name = #{goodName}
+            </if>
+            <if test="goodPrice != null">
+                and good_price = #{goodPrice}
+            </if>
+            <if test="goodCount != null">
+                and good_count = #{goodCount}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into auth.order_good(order_no, good_id, good_name, good_price, good_count)
+        values (#{orderNo}, #{goodId}, #{goodName}, #{goodPrice}, #{goodCount})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update auth.order_good
+        <set>
+            <if test="orderNo != null and orderNo != ''">
+                order_no = #{orderNo},
+            </if>
+            <if test="goodId != null">
+                good_id = #{goodId},
+            </if>
+            <if test="goodName != null and goodName != ''">
+                good_name = #{goodName},
+            </if>
+            <if test="goodPrice != null">
+                good_price = #{goodPrice},
+            </if>
+            <if test="goodCount != null">
+                good_count = #{goodCount},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from auth.order_good where id = #{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.auth.mapper.DepartmentDao">
+
+    <resultMap type="com.lx.auth.model.dto.Department" id="DepartmentMap">
+        <result property="id" column="id" jdbcType="LONG INTEGER"/>
+        <result property="deptCode" column="dept_code" jdbcType="VARCHAR"/>
+        <result property="orgId" column="org_id" jdbcType="LONG INTEGER"/>
+        <result property="departmentName" column="department_name" jdbcType="VARCHAR"/>
+        <result property="deptParentId" column="dept_parent_id" jdbcType="LONG INTEGER"/>
+        <result property="manager" column="manager" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="effectiveDate" column="effective_date" jdbcType="TIMESTAMP"/>
+        <result property="expireDate" column="expire_date" jdbcType="TIMESTAMP"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="noDeleted" column="no_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DepartmentMap">
+        select
+          id, dept_code, org_id, department_name, dept_parent_id, manager, create_by, update_by, effective_date, expire_date, description, status, create_time, update_time, no_deleted
+        from auth.department
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DepartmentMap">
+        select
+          id, dept_code, org_id, department_name, dept_parent_id, manager, create_by, update_by, effective_date, expire_date, description, status, create_time, update_time, no_deleted
+        from auth.department
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="DepartmentMap">
+        select
+          id, dept_code, org_id, department_name, dept_parent_id, manager, create_by, update_by, effective_date, expire_date, description, status, create_time, update_time, no_deleted
+        from auth.department
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="deptCode != null and deptCode != ''">
+                and dept_code = #{deptCode}
+            </if>
+            <if test="orgId != null">
+                and org_id = #{orgId}
+            </if>
+            <if test="departmentName != null and departmentName != ''">
+                and department_name = #{departmentName}
+            </if>
+            <if test="deptParentId != null">
+                and dept_parent_id = #{deptParentId}
+            </if>
+            <if test="manager != null and manager != ''">
+                and manager = #{manager}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="effectiveDate != null">
+                and effective_date = #{effectiveDate}
+            </if>
+            <if test="expireDate != null">
+                and expire_date = #{expireDate}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="noDeleted != null">
+                and no_deleted = #{noDeleted}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into auth.department(dept_code, org_id, department_name, dept_parent_id, manager, create_by, update_by, effective_date, expire_date, description, status, create_time, update_time, no_deleted)
+        values (#{deptCode}, #{orgId}, #{departmentName}, #{deptParentId}, #{manager}, #{createBy}, #{updateBy}, #{effectiveDate}, #{expireDate}, #{description}, #{status}, #{createTime}, #{updateTime}, #{noDeleted})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update auth.department
+        <set>
+            <if test="deptCode != null and deptCode != ''">
+                dept_code = #{deptCode},
+            </if>
+            <if test="orgId != null">
+                org_id = #{orgId},
+            </if>
+            <if test="departmentName != null and departmentName != ''">
+                department_name = #{departmentName},
+            </if>
+            <if test="deptParentId != null">
+                dept_parent_id = #{deptParentId},
+            </if>
+            <if test="manager != null and manager != ''">
+                manager = #{manager},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="effectiveDate != null">
+                effective_date = #{effectiveDate},
+            </if>
+            <if test="expireDate != null">
+                expire_date = #{expireDate},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="noDeleted != null">
+                no_deleted = #{noDeleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from auth.department where id = #{id}
+    </delete>
+
+</mapper>

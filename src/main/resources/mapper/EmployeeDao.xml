@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.auth.mapper.EmployeeDao">
+
+    <resultMap type="com.lx.auth.model.dto.Employee" id="EmployeeMap">
+        <result property="id" column="id" jdbcType="LONG INTEGER"/>
+        <result property="employeeCode" column="employee_code" jdbcType="VARCHAR"/>
+        <result property="orgId" column="org_id" jdbcType="LONG INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="INTEGER"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="birthday" column="birthday" jdbcType="TIMESTAMP"/>
+        <result property="hireDate" column="hire_date" jdbcType="TIMESTAMP"/>
+        <result property="companyEmail" column="company_email" jdbcType="VARCHAR"/>
+        <result property="personalEmail" column="personal_email" jdbcType="VARCHAR"/>
+        <result property="preferCountry" column="prefer_country" jdbcType="LONG INTEGER"/>
+        <result property="cardNumber" column="card_number" jdbcType="VARCHAR"/>
+        <result property="highestEducation" column="highest_education" jdbcType="INTEGER"/>
+        <result property="married" column="married" jdbcType="INTEGER"/>
+        <result property="country" column="country" jdbcType="VARCHAR"/>
+        <result property="birthplace" column="birthplace" jdbcType="VARCHAR"/>
+        <result property="nation" column="nation" jdbcType="INTEGER"/>
+        <result property="politicalStatus" column="political_status" jdbcType="INTEGER"/>
+        <result property="religiousFaith" column="religious_faith" jdbcType="INTEGER"/>
+        <result property="permResidenceClass" column="perm_residence_class" jdbcType="INTEGER"/>
+        <result property="censusRegister" column="census_register" jdbcType="VARCHAR"/>
+        <result property="homeAddress" column="home_address" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="emerContactName" column="emer_contact_name" jdbcType="VARCHAR"/>
+        <result property="emerContactPhone" column="emer_contact_phone" jdbcType="VARCHAR"/>
+        <result property="emerContactRel" column="emer_contact_rel" jdbcType="VARCHAR"/>
+        <result property="emerContactAddr" column="emer_contact_addr" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="noDeleted" column="no_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="EmployeeMap">
+        select
+          id, employee_code, org_id, name, gender, phone, birthday, hire_date, company_email, personal_email, prefer_country, card_number, highest_education, married, country, birthplace, nation, political_status, religious_faith, perm_residence_class, census_register, home_address, type, avatar, emer_contact_name, emer_contact_phone, emer_contact_rel, emer_contact_addr, create_time, update_time, create_by, update_by, no_deleted
+        from auth.employee
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="EmployeeMap">
+        select
+          id, employee_code, org_id, name, gender, phone, birthday, hire_date, company_email, personal_email, prefer_country, card_number, highest_education, married, country, birthplace, nation, political_status, religious_faith, perm_residence_class, census_register, home_address, type, avatar, emer_contact_name, emer_contact_phone, emer_contact_rel, emer_contact_addr, create_time, update_time, create_by, update_by, no_deleted
+        from auth.employee
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="EmployeeMap">
+        select
+          id, employee_code, org_id, name, gender, phone, birthday, hire_date, company_email, personal_email, prefer_country, card_number, highest_education, married, country, birthplace, nation, political_status, religious_faith, perm_residence_class, census_register, home_address, type, avatar, emer_contact_name, emer_contact_phone, emer_contact_rel, emer_contact_addr, create_time, update_time, create_by, update_by, no_deleted
+        from auth.employee
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="employeeCode != null and employeeCode != ''">
+                and employee_code = #{employeeCode}
+            </if>
+            <if test="orgId != null">
+                and org_id = #{orgId}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="birthday != null">
+                and birthday = #{birthday}
+            </if>
+            <if test="hireDate != null">
+                and hire_date = #{hireDate}
+            </if>
+            <if test="companyEmail != null and companyEmail != ''">
+                and company_email = #{companyEmail}
+            </if>
+            <if test="personalEmail != null and personalEmail != ''">
+                and personal_email = #{personalEmail}
+            </if>
+            <if test="preferCountry != null">
+                and prefer_country = #{preferCountry}
+            </if>
+            <if test="cardNumber != null and cardNumber != ''">
+                and card_number = #{cardNumber}
+            </if>
+            <if test="highestEducation != null">
+                and highest_education = #{highestEducation}
+            </if>
+            <if test="married != null">
+                and married = #{married}
+            </if>
+            <if test="country != null and country != ''">
+                and country = #{country}
+            </if>
+            <if test="birthplace != null and birthplace != ''">
+                and birthplace = #{birthplace}
+            </if>
+            <if test="nation != null">
+                and nation = #{nation}
+            </if>
+            <if test="politicalStatus != null">
+                and political_status = #{politicalStatus}
+            </if>
+            <if test="religiousFaith != null">
+                and religious_faith = #{religiousFaith}
+            </if>
+            <if test="permResidenceClass != null">
+                and perm_residence_class = #{permResidenceClass}
+            </if>
+            <if test="censusRegister != null and censusRegister != ''">
+                and census_register = #{censusRegister}
+            </if>
+            <if test="homeAddress != null and homeAddress != ''">
+                and home_address = #{homeAddress}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+            <if test="avatar != null and avatar != ''">
+                and avatar = #{avatar}
+            </if>
+            <if test="emerContactName != null and emerContactName != ''">
+                and emer_contact_name = #{emerContactName}
+            </if>
+            <if test="emerContactPhone != null and emerContactPhone != ''">
+                and emer_contact_phone = #{emerContactPhone}
+            </if>
+            <if test="emerContactRel != null and emerContactRel != ''">
+                and emer_contact_rel = #{emerContactRel}
+            </if>
+            <if test="emerContactAddr != null and emerContactAddr != ''">
+                and emer_contact_addr = #{emerContactAddr}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="noDeleted != null">
+                and no_deleted = #{noDeleted}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into auth.employee(employee_code, org_id, name, gender, phone, birthday, hire_date, company_email, personal_email, prefer_country, card_number, highest_education, married, country, birthplace, nation, political_status, religious_faith, perm_residence_class, census_register, home_address, type, avatar, emer_contact_name, emer_contact_phone, emer_contact_rel, emer_contact_addr, create_time, update_time, create_by, update_by, no_deleted)
+        values (#{employeeCode}, #{orgId}, #{name}, #{gender}, #{phone}, #{birthday}, #{hireDate}, #{companyEmail}, #{personalEmail}, #{preferCountry}, #{cardNumber}, #{highestEducation}, #{married}, #{country}, #{birthplace}, #{nation}, #{politicalStatus}, #{religiousFaith}, #{permResidenceClass}, #{censusRegister}, #{homeAddress}, #{type}, #{avatar}, #{emerContactName}, #{emerContactPhone}, #{emerContactRel}, #{emerContactAddr}, #{createTime}, #{updateTime}, #{createBy}, #{updateBy}, #{noDeleted})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update auth.employee
+        <set>
+            <if test="employeeCode != null and employeeCode != ''">
+                employee_code = #{employeeCode},
+            </if>
+            <if test="orgId != null">
+                org_id = #{orgId},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="hireDate != null">
+                hire_date = #{hireDate},
+            </if>
+            <if test="companyEmail != null and companyEmail != ''">
+                company_email = #{companyEmail},
+            </if>
+            <if test="personalEmail != null and personalEmail != ''">
+                personal_email = #{personalEmail},
+            </if>
+            <if test="preferCountry != null">
+                prefer_country = #{preferCountry},
+            </if>
+            <if test="cardNumber != null and cardNumber != ''">
+                card_number = #{cardNumber},
+            </if>
+            <if test="highestEducation != null">
+                highest_education = #{highestEducation},
+            </if>
+            <if test="married != null">
+                married = #{married},
+            </if>
+            <if test="country != null and country != ''">
+                country = #{country},
+            </if>
+            <if test="birthplace != null and birthplace != ''">
+                birthplace = #{birthplace},
+            </if>
+            <if test="nation != null">
+                nation = #{nation},
+            </if>
+            <if test="politicalStatus != null">
+                political_status = #{politicalStatus},
+            </if>
+            <if test="religiousFaith != null">
+                religious_faith = #{religiousFaith},
+            </if>
+            <if test="permResidenceClass != null">
+                perm_residence_class = #{permResidenceClass},
+            </if>
+            <if test="censusRegister != null and censusRegister != ''">
+                census_register = #{censusRegister},
+            </if>
+            <if test="homeAddress != null and homeAddress != ''">
+                home_address = #{homeAddress},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="avatar != null and avatar != ''">
+                avatar = #{avatar},
+            </if>
+            <if test="emerContactName != null and emerContactName != ''">
+                emer_contact_name = #{emerContactName},
+            </if>
+            <if test="emerContactPhone != null and emerContactPhone != ''">
+                emer_contact_phone = #{emerContactPhone},
+            </if>
+            <if test="emerContactRel != null and emerContactRel != ''">
+                emer_contact_rel = #{emerContactRel},
+            </if>
+            <if test="emerContactAddr != null and emerContactAddr != ''">
+                emer_contact_addr = #{emerContactAddr},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="noDeleted != null">
+                no_deleted = #{noDeleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from auth.employee where id = #{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.auth.mapper.PermissionDao">
+
+    <resultMap type="com.lx.auth.model.dto.Permission" id="PermissionMap">
+        <result property="id" column="id" jdbcType="LONG INTEGER"/>
+        <result property="code" column="code" jdbcType="VARCHAR"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="action" column="action" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+        <result property="parentId" column="parent_id" jdbcType="LONG INTEGER"/>
+        <result property="sequence" column="sequence" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="visible" column="visible" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="noDeleted" column="no_deleted" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PermissionMap">
+        select
+          id, code, name, type, action, url, parent_id, sequence, status, visible, remark, create_time, update_time, create_by, update_by, no_deleted
+        from auth.permission
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PermissionMap">
+        select
+          id, code, name, type, action, url, parent_id, sequence, status, visible, remark, create_time, update_time, create_by, update_by, no_deleted
+        from auth.permission
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PermissionMap">
+        select
+          id, code, name, type, action, url, parent_id, sequence, status, visible, remark, create_time, update_time, create_by, update_by, no_deleted
+        from auth.permission
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="code != null and code != ''">
+                and code = #{code}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+            <if test="action != null and action != ''">
+                and action = #{action}
+            </if>
+            <if test="url != null and url != ''">
+                and url = #{url}
+            </if>
+            <if test="parentId != null">
+                and parent_id = #{parentId}
+            </if>
+            <if test="sequence != null">
+                and sequence = #{sequence}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="visible != null">
+                and visible = #{visible}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="noDeleted != null">
+                and no_deleted = #{noDeleted}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into auth.permission(code, name, type, action, url, parent_id, sequence, status, visible, remark, create_time, update_time, create_by, update_by, no_deleted)
+        values (#{code}, #{name}, #{type}, #{action}, #{url}, #{parentId}, #{sequence}, #{status}, #{visible}, #{remark}, #{createTime}, #{updateTime}, #{createBy}, #{updateBy}, #{noDeleted})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update auth.permission
+        <set>
+            <if test="code != null and code != ''">
+                code = #{code},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="action != null and action != ''">
+                action = #{action},
+            </if>
+            <if test="url != null and url != ''">
+                url = #{url},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="sequence != null">
+                sequence = #{sequence},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="visible != null">
+                visible = #{visible},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="noDeleted != null">
+                no_deleted = #{noDeleted},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from auth.permission where id = #{id}
+    </delete>
+
+</mapper>

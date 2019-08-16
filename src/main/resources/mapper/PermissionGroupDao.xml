@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.auth.mapper.PermissionGroupDao">
+
+    <resultMap type="com.lx.auth.model.dto.PermissionGroup" id="PermissionGroupMap">
+        <result property="id" column="id" jdbcType="LONG INTEGER"/>
+        <result property="perGroupCode" column="per_group_code" jdbcType="VARCHAR"/>
+        <result property="groupName" column="group_name" jdbcType="VARCHAR"/>
+        <result property="remaker" column="remaker" jdbcType="VARCHAR"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="noDeteled" column="no_deteled" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PermissionGroupMap">
+        select
+          id, per_group_code, group_name, remaker, create_by, update_by, create_time, update_time, no_deteled
+        from auth.permission_group
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PermissionGroupMap">
+        select
+          id, per_group_code, group_name, remaker, create_by, update_by, create_time, update_time, no_deteled
+        from auth.permission_group
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PermissionGroupMap">
+        select
+          id, per_group_code, group_name, remaker, create_by, update_by, create_time, update_time, no_deteled
+        from auth.permission_group
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="perGroupCode != null and perGroupCode != ''">
+                and per_group_code = #{perGroupCode}
+            </if>
+            <if test="groupName != null and groupName != ''">
+                and group_name = #{groupName}
+            </if>
+            <if test="remaker != null and remaker != ''">
+                and remaker = #{remaker}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="noDeteled != null">
+                and no_deteled = #{noDeteled}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into auth.permission_group(per_group_code, group_name, remaker, create_by, update_by, create_time, update_time, no_deteled)
+        values (#{perGroupCode}, #{groupName}, #{remaker}, #{createBy}, #{updateBy}, #{createTime}, #{updateTime}, #{noDeteled})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update auth.permission_group
+        <set>
+            <if test="perGroupCode != null and perGroupCode != ''">
+                per_group_code = #{perGroupCode},
+            </if>
+            <if test="groupName != null and groupName != ''">
+                group_name = #{groupName},
+            </if>
+            <if test="remaker != null and remaker != ''">
+                remaker = #{remaker},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="noDeteled != null">
+                no_deteled = #{noDeteled},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from auth.permission_group where id = #{id}
+    </delete>
+
+</mapper>

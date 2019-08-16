@@ -61,6 +61,16 @@ public class ConvertUtil {
 
 	}
 
+	public static String removeStart(String str, String rm){
+		if(isEmpty(str)){
+			return "";
+		}
+		if(!str.contains(rm) || isEmpty(rm)){
+			return str;
+		}
+		return str.replaceFirst(rm,"");
+	}
+
 	private static String code2code(String strIn, String sourceCode, String targetCode) {
 		String strOut = null;
 		if (strIn == null || (strIn.trim()).equals("")) {

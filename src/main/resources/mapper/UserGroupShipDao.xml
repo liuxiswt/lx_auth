@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.auth.mapper.UserGroupShipDao">
+
+    <resultMap type="com.lx.auth.model.dto.UserGroupShip" id="UserGroupShipMap">
+        <result property="userId" column="user_id" jdbcType="LONG INTEGER"/>
+        <result property="groupId" column="group_id" jdbcType="LONG INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UserGroupShipMap">
+        select
+          user_id, group_id
+        from auth.user_group_ship
+        where user_id = #{userId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserGroupShipMap">
+        select
+          user_id, group_id
+        from auth.user_group_ship
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserGroupShipMap">
+        select
+          user_id, group_id
+        from auth.user_group_ship
+        <where>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="groupId != null">
+                and group_id = #{groupId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="userId" useGeneratedKeys="true">
+        insert into auth.user_group_ship()
+        values ()
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update auth.user_group_ship
+        <set>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from auth.user_group_ship where user_id = #{userId}
+    </delete>
+
+</mapper>

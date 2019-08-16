@@ -19,3 +19,9 @@ mybatis :
   type-aliases-package : com.*.model
   configuration :
     map-underscore-to-camel-case : true
+
+jwt:
+  header: Authorization
+  secret: lx
+  expiration: 3600
+  tokenHead: "Bearer "

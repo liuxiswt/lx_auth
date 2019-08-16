@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lx.auth.mapper.OrganizationDao">
+
+    <resultMap type="com.lx.auth.model.dto.Organization" id="OrganizationMap">
+        <result property="id" column="id" jdbcType="LONG INTEGER"/>
+        <result property="orgCode" column="org_code" jdbcType="VARCHAR"/>
+        <result property="orgName" column="org_name" jdbcType="VARCHAR"/>
+        <result property="orgPhone" column="org_phone" jdbcType="VARCHAR"/>
+        <result property="manager" column="manager" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="noDeteled" column="no_deteled" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrganizationMap">
+        select
+          id, org_code, org_name, org_phone, manager, description, status, create_by, update_by, create_time, update_time, no_deteled
+        from auth.organization
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OrganizationMap">
+        select
+          id, org_code, org_name, org_phone, manager, description, status, create_by, update_by, create_time, update_time, no_deteled
+        from auth.organization
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OrganizationMap">
+        select
+          id, org_code, org_name, org_phone, manager, description, status, create_by, update_by, create_time, update_time, no_deteled
+        from auth.organization
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="orgCode != null and orgCode != ''">
+                and org_code = #{orgCode}
+            </if>
+            <if test="orgName != null and orgName != ''">
+                and org_name = #{orgName}
+            </if>
+            <if test="orgPhone != null and orgPhone != ''">
+                and org_phone = #{orgPhone}
+            </if>
+            <if test="manager != null and manager != ''">
+                and manager = #{manager}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="noDeteled != null">
+                and no_deteled = #{noDeteled}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into auth.organization(org_code, org_name, org_phone, manager, description, status, create_by, update_by, create_time, update_time, no_deteled)
+        values (#{orgCode}, #{orgName}, #{orgPhone}, #{manager}, #{description}, #{status}, #{createBy}, #{updateBy}, #{createTime}, #{updateTime}, #{noDeteled})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update auth.organization
+        <set>
+            <if test="orgCode != null and orgCode != ''">
+                org_code = #{orgCode},
+            </if>
+            <if test="orgName != null and orgName != ''">
+                org_name = #{orgName},
+            </if>
+            <if test="orgPhone != null and orgPhone != ''">
+                org_phone = #{orgPhone},
+            </if>
+            <if test="manager != null and manager != ''">
+                manager = #{manager},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="noDeteled != null">
+                no_deteled = #{noDeteled},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from auth.organization where id = #{id}
+    </delete>
+
+</mapper>
